@@ -54,9 +54,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
       //     }
       //   },
       // ),
-      body: WillPopScope(
+      body: WillPopScope( // this widget is used to detect when the screen is poped and saves the changes
         onWillPop: () async {
-          Navigator.of(context).pop({
+          Navigator.of(context).pop({ // currently the new filters is passed back with the pop method
             Filter.glutenFree: _glutenFreeFilterSet,
             Filter.lactoseFree: _lactoseFreeFilterSet,
             Filter.vegetarian: _vegetarianFilterSet,

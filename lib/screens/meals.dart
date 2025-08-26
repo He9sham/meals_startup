@@ -4,6 +4,8 @@ import 'package:meals/models/meal.dart';
 import 'package:meals/screens/meal_details.dart';
 import 'package:meals/widgets/meal_item.dart';
 
+//this screens is used when openining favourites screen or when accessing a category 
+
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
     super.key,
@@ -21,7 +23,7 @@ class MealsScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (ctx) => MealDetailsScreen(
           meal: meal,
-          onToggleFavorite: onToggleFavorite,
+          onToggleFavorite: onToggleFavorite, //passing the function down
         ),
       ),
     );
@@ -51,7 +53,7 @@ class MealsScreen extends StatelessWidget {
     );
 
     if (meals.isNotEmpty) {
-      content = ListView.builder(
+      content = ListView.builder( //listview builder for optimised list rendering
         itemCount: meals.length,
         itemBuilder: (ctx, index) => MealItem(
           meal: meals[index],

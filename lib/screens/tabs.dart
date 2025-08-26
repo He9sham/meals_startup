@@ -7,6 +7,10 @@ import 'package:meals/screens/filters.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/main_drawer.dart';
 
+//this is the main outer screen (for navigation)
+//curently holds an manage app-wide data
+//any update is done through set-state passed down in functions
+
 const kInitialFilters = {
   Filter.glutenFree: false,
   Filter.lactoseFree: false,
@@ -24,11 +28,12 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int _selectedPageIndex = 0;
-  final List<Meal> _favoriteMeals = [];
-  Map<Filter, bool> _selectedFilters = kInitialFilters;
+  int _selectedPageIndex = 0; //track neals or favourites screen
+  final List<Meal> _favoriteMeals = []; //favourite meals is stored here
+  Map<Filter, bool> _selectedFilters = kInitialFilters; //selected filters is stored here
 
-  void _showInfoMessage(String message) {
+  // snackbar helper
+  void _showInfoMessage(String message) { 
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -37,6 +42,7 @@ class _TabsScreenState extends State<TabsScreen> {
     );
   }
 
+  // logic for making a meal favourite (same functions passed down through screens)
   void _toggleMealFavoriteStatus(Meal meal) {
     final isExisting = _favoriteMeals.contains(meal);
 
@@ -59,6 +65,7 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  // used to open filters screen from side navigation
   void _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == 'filters') {
@@ -70,7 +77,7 @@ class _TabsScreenState extends State<TabsScreen> {
         ),
       );
 
-      setState(() {
+      setState(() { // if user made a filter change update the meals list (becuse of willPopScope)
         _selectedFilters = result ?? kInitialFilters;
       });
     }
@@ -78,6 +85,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //logic for filtering meals (will be outsourced)
     final availableMeals = dummyMeals.where((meal) {
       if (_selectedFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
         return false;
@@ -94,6 +102,8 @@ class _TabsScreenState extends State<TabsScreen> {
       return true;
     }).toList();
 
+    // Meals screen is iused for both the favourites screen and meals list screen
+    //meal list screen is accessed throug categories screen
     Widget activePage = CategoriesScreen(
       onToggleFavorite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,

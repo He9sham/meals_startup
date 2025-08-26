@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:meals/models/meal.dart';
 
+
+//this is the final screen in the stack and it is the one that uses the toggleFavourites function
+// it shows a previes image and how a meal is prepared (reciepe)
 class MealDetailsScreen extends StatelessWidget {
   const MealDetailsScreen({
     super.key,
@@ -20,7 +23,7 @@ class MealDetailsScreen extends StatelessWidget {
             onPressed: () {
               onToggleFavorite(meal);
             },
-            icon: const Icon(Icons.star),
+            icon: const Icon(Icons.star), // will change when a proper state managment
           )
         ]),
         body: SingleChildScrollView(

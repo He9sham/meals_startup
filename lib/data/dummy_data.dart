@@ -4,6 +4,7 @@ import 'package:meals/models/category.dart';
 import 'package:meals/models/meal.dart';
 
 // Constants in Dart should be written in lowerCamelcase.
+// this is the data used to fill all data 
 const availableCategories = [
   Category(
     id: 'c1',
